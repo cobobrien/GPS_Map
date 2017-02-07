@@ -3,7 +3,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
 @prefix ex: <http://example.com/ns#> .
 @prefix foaf: <http://xmlns.com/foaf#>.
-<#PersonMapping>
+<#TimeMapping>
   rr:logicalTable [ rr:tableName "ID" ];
   
   rr:subjectMap [
