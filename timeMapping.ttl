@@ -2,20 +2,19 @@
 @prefix rml: <http://semweb.mmlab.be/ns/rml#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
 @prefix ex: <http://example.com/ns#> .
-@prefix foaf: <http://xmlns.com/foaf#>.
-<#TimeMapping>
-  rr:logicalTable [ rr:tableName "ID" ];
+<#PersonMapping>
+  rr:logicalTable [ rr:tableName "time" ];
   
   rr:subjectMap [
-    rr:template "http://airport.example.com/{ID}";
-    rr:class foaf:Person 
+    rr:template "http://example.com/{ID}";
+    rr:class xsd:time 
   ];
 
   rr:predicateObjectMap [
-    rr:predicate ex:ID:;
+    rr:predicate xsd:time ;
     rr:objectMap [
-      rml:reference "ID";
-      rr:datatype xsd:s
+      rml:reference "time";
+      rr:datatype xsd:time
       ]
     ].
 
