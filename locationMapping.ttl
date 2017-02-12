@@ -1,33 +1,41 @@
 @prefix rr: <http://www.w3.org/ns/r2rml#>.
-@prefix rml: <http://semweb.mmlab.be/ns/rml#>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
 @prefix geo: <http://www.opengis.net/ont/geosparql#>
-@prefix WKLiteral: <http://www.opengis.net/spec/GeoSPARQL/1.0/req/WKTLiteral#>
 
 <#LocationMapping>
-  rml:logicalSource [
-    rml:source "http://www.example.com/arrayTo.csv" ;
-    rml:referenceFormulation ql:CSV 
-  ];
-  rr:subjectMap [
-    rr:template "http://example.com/{id}";
-    rr:class WKLiteral:Point
-  ];
-
-  rr:predicateObjectMap [
-    rr:predicate Point: Latitude;
-    rr:objectMap [
-      rml:reference "Latitude";
-      rr:datatype xsd:double
-      ]
-    ];
-
- rr:predicateObjectMap [
-    rr:predicate Point: Longitude;
-    rr:objectMap [
-      rml:reference "Longitude";
-      rr:datatype xsd:double
-      ]
-    ].
-
+  rr:logicalTable [ rr:tableName "arrayTo" ] ;
   
+  rr:subjectMap [
+    rr:template "http://example.com/location/{ID}" ;
+    rr:class geo:Feature ;	
+  ] ;
+  
+  rr:predicateObjectMap [
+    rr:predicate geo:hasGeometry ;
+      rr:objectMap [
+        rr:parentTriplesMap <#LocationMappingGeometry> ;
+        rr:joinCondition [
+          rr:child "ID" ;
+          rr:parent "ID" ;
+        ] ;
+      ] ;
+    ] ;
+  .
+
+<#LocationMappingGeometry>
+	rr:logicalTable [ rr:tableName "arrayTo" ] ;
+	
+    rr:subjectMap [
+      rr:template "http://example.com/geometry/{ID}" ;
+      rr:class geo:Geometry ;
+    ] ;
+	
+    rr:predicateObjectMap [
+      rr:predicate geo:asWKT ;
+	  rr:objectMap [
+	    rr:template "POINT({LONGITUDE} {LATITUDE})" ;
+		rr:termType rr:Literal ;
+		rr:datatype geo:wktLiteral ;
+	  ] ;
+	] ;
+	.
