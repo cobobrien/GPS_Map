@@ -12,9 +12,10 @@
   rr:predicateObjectMap [
     rr:predicate xsd:time ;
     rr:objectMap [
-      rr:column "time";
+      rr:column "TIME";
       rr:datatype xsd:time
-      ]
-    ].
+      ];
+    ];
+    .
 
  
